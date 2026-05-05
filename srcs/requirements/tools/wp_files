@@ -1,0 +1,5 @@
+A volume that contains your WordPress database.
+You must use Docker named volumes for these two persistent storages. Bind
+mounts are not allowed for these volumes.
+Both named volumes must store their data inside /home/abarzila/data on the host
+machine

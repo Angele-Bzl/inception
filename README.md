@@ -33,3 +33,5 @@ config:
 ``` 
 
 ## Resources
+- [make a yml file](https://github.com/Tutors42Lyon/Github-Actions)
+- [make a dockerfile](https://docs.docker.com/get-started/docker-concepts/building-images/writing-a-dockerfile/)

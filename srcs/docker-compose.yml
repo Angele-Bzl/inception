@@ -1,0 +1,9 @@
+name: docker-compose
+on: boot
+jobs:
+  checks:
+  runs-on: penultimate Debian or Alpine version
+  steps: call 3 dockerfiles
+
+  # A docker-network that establishes the connection between your containers
+  # Your containers have to restart in case of a crash.
