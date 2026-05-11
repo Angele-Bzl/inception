@@ -1,10 +1,3 @@
-name: docker-compose
-on: boot
-jobs:
-  checks:
-  runs-on: penultimate Debian or Alpine version
-  steps: call 3 dockerfiles
-
   # A docker-network that establishes the connection between your containers
   # Your containers have to restart in case of a crash.
 
@@ -14,33 +7,37 @@ services: #containers images to use
   nginx: 
     container_name: nginx
     build: ./requirements/nginx #dockerfile path
-    ports: 443:443 #port mapping to access from my machine
+    ports: 
+      - "443:443" #port mapping to access from my machine
     restart: always
-    depends_on:   
-      wordpress: #why ?
-        restart: true
+    # depends_on:   
+    #   wordpress:
+        # restart: true
     volumes:
       - wordpress_data:/var/www/html # ?
     networks:
       - inception # is a part of the inception network
 
-  mariadb:
-    container_name: mariadb
-    build:  ./requirements/mariadb #dockerfile path
-    volumes: /home/abarzila/data #mapping to store and not disappear
-    restart: always
+  # mariadb:
+  #   container_name: mariadb
+  #   build:  ./requirements/mariadb #dockerfile path
+  #   volumes: /home/abarzila/data #mapping to store and not disappear
+  #   restart: always
     
-  wordpress:
-    container_name: wordpress
-    build: ./requirements/wordpress #dockerfile path
-    volumes: /home/abarzila/data #mapping to store and not disappear
-    restart: always
+  # wordpress:
+  #   container_name: wordpress
+  #   build: ./requirements/wordpress #dockerfile path
+  #   volumes: /home/abarzila/data #mapping to store and not disappear
+  #   restart: always
 
 
 
 networks:
-  abarzila: #name of the network ?
-  ipam: #ip adress managment
-    driver: default #?
+  inception: #name of the network
+    driver: bridge #?
+    ipam: #ip adress managment
     config:
-      - subnet: #ip here betweenn quotes
+      - subnet: "172.20.0.0/16" #ip here between quotes
+
+volumes:
+  wordpress_data:
