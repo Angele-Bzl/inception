@@ -11,9 +11,10 @@ services: #containers images to use
     ports: 
       - "8080:443" #port mapping to access from my machine
     restart: always
-    # depends_on:   
-    #   wordpress:
-        # restart: true
+    depends_on:   
+      wordpress:
+        condition: service_healthy
+        restart: true
     volumes:
       - wordpress_data:/var/www/html # ?
     networks:
@@ -29,13 +30,18 @@ services: #containers images to use
     # networks:
     #   - inception # is a part of the inception network
     
-  # wordpress:
-  #   container_name: wordpress
-  #   build: ./requirements/wordpress #dockerfile path
-  #   volumes: /home/abarzila/data #mapping to store and not disappear
-  #   restart: always
-    # networks:
-    #   - inception # is a part of the inception network
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements
+      dockerfile: wordpress/Dockerfile
+    ports:
+      - "8081:443"
+    volumes:
+      - "/home/abarzila/data" #mapping to store and not disappear
+    restart: always
+    networks:
+      - inception # is a part of the inception network
 
 
 
@@ -47,4 +53,9 @@ networks:
         - subnet: "172.20.0.0/16" #ip here between quotes
 
 volumes:
-  wordpress_data:
+  wordpress_data: #check the infos ?
+    # driver: local
+    # driver_opts:
+    # type: none
+    # o: bind
+    # device: ${HOME}/data/wordpress
