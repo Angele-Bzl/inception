@@ -72,3 +72,6 @@ a volume maps the docker directory to a directory on our machine, so that if the
 - [what is docker](https://fr.wikipedia.org/wiki/Docker_(logiciel))
 - [write a docker-compose.yml](https://www.youtube.com/watch?v=DM65_JyGxCo)
 - [understanding Inception step by step](https://tuto.grademe.fr/inception/)
+- [debian's versions](https://www.debian.org/releases/index.fr.html)
+- [connecting MariaDB to a server](https://mariadb.com/docs/server/server-usage/connecting/mariadb-connecting-guide-1)
+- [what is nginx](https://www.f5.com/glossary/nginx)

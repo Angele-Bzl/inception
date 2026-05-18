@@ -1,47 +1,51 @@
-  # A docker-network that establishes the connection between your containers
-  # Your containers have to restart in case of a crash.
+# A docker-network that establishes the connection between your containers
+# Your containers have to restart in case of a crash.
 # version: "3" #docker version
 
 services: #containers images to use
-  nginx: 
-    container_name: nginx
+  # nginx: 
+  #   container_name: nginx
+  #   build:
+  #     context: ./requirements
+  #     dockerfile: nginx/Dockerfile
+  #   ports: 
+  #     - "443:443" #port mapping to access from my machine
+  #   restart: always
+  #   # depends_on:   
+  #   #   wordpress:
+  #   #     condition: service_healthy
+  #   #     restart: true
+  #   volumes:
+  #     - wordpress_data:/var/www/html # ?
+  #   networks:
+  #     - inception # is a part of the inception network
+
+  mariadb:
+    container_name: mariadb
     build:
       context: ./requirements
-      dockerfile: nginx/Dockerfile
-    ports: 
-      - "8080:443" #port mapping to access from my machine
-    restart: always
-    depends_on:   
-      wordpress:
-        condition: service_healthy
-        restart: true
+      dockerfile: mariadb/Dockerfile
+    ports:
+      - "3306"
+    # volumes: /home/abarzila/data #mapping to store and not disappear
     volumes:
       - wordpress_data:/var/www/html # ?
-    networks:
-      - inception # is a part of the inception network
-
-  # mariadb:
-  #   container_name: mariadb
-  #   build:  ./requirements/mariadb #dockerfile path
-  #   ports:
-  #     - "8081:443"
-  #   volumes: /home/abarzila/data #mapping to store and not disappear
-  #   restart: always
-    # networks:
-    #   - inception # is a part of the inception network
-    
-  wordpress:
-    container_name: wordpress
-    build:
-      context: ./requirements
-      dockerfile: wordpress/Dockerfile
-    ports:
-      - "8081:443"
-    volumes:
-      - "/home/abarzila/data" #mapping to store and not disappear
     restart: always
     networks:
       - inception # is a part of the inception network
+    
+  # wordpress:
+  #   container_name: wordpress
+  #   build:
+  #     context: ./requirements
+  #     dockerfile: wordpress/Dockerfile
+  #   ports:
+  #     - "8081:443"
+  #   volumes:
+  #     - "/home/abarzila/data" #mapping to store and not disappear
+  #   restart: always
+  #   networks:
+  #     - inception # is a part of the inception network
 
 
 

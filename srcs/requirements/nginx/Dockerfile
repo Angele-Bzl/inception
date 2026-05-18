@@ -7,7 +7,7 @@ FROM    debian:bookworm
 RUN     apt-get update && apt-get install -y nginx \
         && rm -rf /var/lib/apt/lists/*
 
-# copy the container to the right directory
+# copy the container script to the right directory
 COPY    tools/init.sh /usr/local/bin/init.sh
 
 # open port for the other containers https://
