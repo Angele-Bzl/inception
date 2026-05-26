@@ -20,19 +20,19 @@ services: #containers images to use
     networks:
       - inception # is a part of the inception network
 
-  # mariadb:
-  #   container_name: mariadb
-  #   build:
-  #     context: ./requirements
-  #     dockerfile: mariadb/Dockerfile
-  #   ports:
-  #     - "3306"
-  #   # volumes: /home/abarzila/data #mapping to store and not disappear
-  #   volumes:
-  #     - wordpress_data:/var/www/html # ?
-  #   restart: always
-  #   networks:
-      # - inception # is a part of the inception network
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements
+      dockerfile: mariadb/Dockerfile
+    ports:
+      - "3306"
+    # volumes: /home/abarzila/data #mapping to store and not disappear
+    volumes:
+      - wordpress_data:/var/www/html # ?
+    restart: always
+    networks:
+      - inception # is a part of the inception network
     
   # wordpress:
   #   container_name: wordpress

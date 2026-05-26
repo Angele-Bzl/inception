@@ -10,6 +10,7 @@ RUN     apt-get update \
         && apt-get install -y nginx openssl \
         && rm -rf /var/lib/apt/lists/*
 
+# download ssl to create the certificate
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -keyout /etc/nginx/${DOMAIN_NAME}.42.fr.key \
         -out /etc/nginx/${DOMAIN_NAME}.42.fr.crt \

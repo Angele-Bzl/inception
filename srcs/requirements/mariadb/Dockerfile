@@ -2,14 +2,13 @@
 
 FROM debian:bookworm
 
-COPY tools/init.sh /usr/local/bin/init.sh
+COPY mariadb/tools/init.sh /usr/local/bin/init.sh
 
-RUN sudo apt install mariadb-server mariadb-client galera-4 \
-    && sudo mariadb-secure-installation \
-    && sudo systemctl status mariadb \
-    && sudo systemctl start mariadb \
-    && mariadb -u root -p
+# download mariadb
+RUN apt update \
+    && apt install mariadb-server mariadb-client galera-4 \
+    && mariadb-secure-installation 
 
-EXPOSE 3306
+# EXPOSE 3306
 
 ENTRYPOINT ["/usr/local/bin/init.sh"]
