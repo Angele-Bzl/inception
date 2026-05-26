@@ -9,7 +9,7 @@ services: #containers images to use
       context: ./requirements
       dockerfile: nginx/Dockerfile
     ports: 
-      - "443:443" #port mapping to access from my machine
+      - "443:443" #port mapping to access from my machine host:container
     restart: always
     # depends_on:   
     #   wordpress:
