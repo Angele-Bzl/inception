@@ -5,8 +5,8 @@ FROM debian:bookworm
 COPY mariadb/tools/init.sh /usr/local/bin/init.sh
 
 # download mariadb
-RUN apt update \
-    && apt install mariadb-server mariadb-client galera-4 \
+RUN apt update -y \
+    && apt install -y mariadb-server mariadb-client galera-4 \
     && mariadb-secure-installation 
 
 # EXPOSE 3306
