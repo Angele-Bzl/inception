@@ -27,25 +27,24 @@ services: #containers images to use
       dockerfile: mariadb/Dockerfile
     ports:
       - "3306"
-    # volumes: /home/abarzila/data #mapping to store and not disappear
     volumes:
       - wordpress_data:/var/www/html # ?
     restart: always
     networks:
       - inception # is a part of the inception network
     
-  # wordpress:
-  #   container_name: wordpress
-  #   build:
-  #     context: ./requirements
-  #     dockerfile: wordpress/Dockerfile
-  #   ports:
-  #     - "8081:443"
-  #   volumes:
-  #     - "/home/abarzila/data" #mapping to store and not disappear
-  #   restart: always
-  #   networks:
-  #     - inception # is a part of the inception network
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements
+      dockerfile: wordpress/Dockerfile
+    ports:
+      - "8081:443"
+    volumes:
+      - "/home/abarzila/data" #mapping to store and not disappear
+    restart: always
+    networks:
+      - inception # is a part of the inception network
 
 
 

@@ -16,13 +16,23 @@
 FROM    debian:bookworm
 
 # download the utilities
-RUN     apt-get update && apt-get install -y wordpress
+RUN     apt update -y \
+        && apt install -y \
+        php-fpm \
+        php-mysql \
+        wget \
+        tar \
+        mariadb-client
+
+RUN sed -i 's|listen = /run/php/php8.2-fpm.sock|listen = 9000|g' /etc/php/8.2/fpm/pool.d/www.conf
+
+RUN mkdir -p /run/php
 
 # copy the container script to the right directory
 COPY    tools/init.sh /usr/local/bin/init.sh
+RUN     chmod +x /usr/local/bin/init.sh
 
-# open port for the other containers https://
-EXPOSE  443
+# EXPOSE  9000
 
 # command run when the container is launched
-ENTRYPOINT  ["sh", "/usr/local/bin/init.sh"]
+ENTRYPOINT  ["/usr/local/bin/init.sh"]

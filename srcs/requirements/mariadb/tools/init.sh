@@ -10,6 +10,7 @@ if [ ! -d "/var/lib/mysql" ]; then
     mariadbd --user=mysql --skip-networking &
     
     until mariadb-admin ping --silent; do 
+        echo "Waiting for mariadb..."
         sleep 1
     done
 
