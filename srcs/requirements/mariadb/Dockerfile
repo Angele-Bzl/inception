@@ -10,6 +10,7 @@ RUN chmod +x /usr/local/bin/init.sh
 RUN apt update -y \
     && apt install -y mariadb-server mariadb-client galera-4
     # && mariadb-secure-installation 
+    
 # create directories
 RUN mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql \
     && mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
