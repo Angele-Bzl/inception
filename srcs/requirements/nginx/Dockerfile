@@ -25,3 +25,5 @@ COPY    nginx/conf/nginx.conf /etc/nginx/nginx.conf
 
 # command run when the container is launched
 ENTRYPOINT  ["nginx", "-g", "daemon off;"]
+
+# the variable should be in .env and the cmd that need var should be in a script
