@@ -8,7 +8,8 @@ RUN chmod +x /usr/local/bin/init.sh
 
 # download mariadb
 RUN apt update -y \
-    && apt install -y mariadb-server mariadb-client galera-4
+    && apt install -y mariadb-server mariadb-client galera-4 \
+    && rm -rf /var/lib/apt/lists/*
     # && mariadb-secure-installation 
     
 # create directories
