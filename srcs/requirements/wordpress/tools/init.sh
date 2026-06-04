@@ -6,7 +6,7 @@ if  [ ! -f "/var/www/html/wp-config.php" ]; then
     mv wordpress/* /var/www/html/
     rm -rf wordpress latest.tar.gz
 
-    until mariadb-admin ping -h mariadb --silent; do
+    until mariadb-admin ping -h mariadb -u "${MYSQL_USER_ADMIN}" -p"${MYSQL_PASSWORD_ADMIN}" --silent; do
         echo "Waiting for mariadb..."
         sleep 1
     done
