@@ -11,10 +11,10 @@ services: #containers images to use
     ports: 
       - "443:443" #port mapping to access from my machine host:container
     restart: always
-    # depends_on:   
-    #   wordpress:
-    #     condition: service_healthy
-    #     restart: true
+    depends_on:   
+      wordpress:
+        condition: service_healthy
+        restart: true
     volumes:
       - wordpress_data:/var/www/html # ?
     networks:
@@ -25,10 +25,16 @@ services: #containers images to use
     build:
       context: ./requirements
       dockerfile: mariadb/Dockerfile
-    ports:
-      - "3306"
+    # ports:
+    #   - "3306"
     volumes:
-      - wordpress_data:/var/www/html # ?
+      # - wordpress_data:/var/www/html
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+          test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "--silent"]
+          interval: 5s
+          timeout: 5s
+          retries: 5
     restart: always
     networks:
       - inception # is a part of the inception network
@@ -38,10 +44,20 @@ services: #containers images to use
     build:
       context: ./requirements
       dockerfile: wordpress/Dockerfile
-    ports:
-      - "8081:443"
+    # ports:
+    #   - "8081:443"
+    depends_on:   
+      mariadb:
+        condition: service_healthy
+        restart: true
+    healthcheck:
+      test: ["CMD", "listen", "3000"] # basic placeholder, or check if php-fpm port 9000 is open
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
-      - "/home/abarzila/data" #mapping to store and not disappear
+      # - "/home/abarzila/data" #mapping to store and not disappear
+      - wordpress_data:/var/www/html
     restart: always
     networks:
       - inception # is a part of the inception network
@@ -50,15 +66,22 @@ services: #containers images to use
 
 networks:
   inception: #name of the network
-    driver: bridge #?
+    driver: bridge
     ipam: #ip adress managment
       config:
         - subnet: "172.20.0.0/16" #ip here between quotes
 
 volumes:
   wordpress_data: #check the infos ?
-    # driver: local
-    # driver_opts:
-    # type: none
-    # o: bind
-    # device: ${HOME}/data/wordpress
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/abarzila/data/wordpress
+
+  mariadb_data: #check the infos ?
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/abarzila/data/mariadb

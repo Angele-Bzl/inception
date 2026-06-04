@@ -22,6 +22,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     mariadb -u root -p"${MYSQL_ROOT_PASSWORD}" -e "FLUSH PRIVILEGES;"
 
     mariadb-admin -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
+    sleep 2
 
 fi
 
