@@ -25,6 +25,7 @@ RUN     apt update -y \
         mariadb-client \
         curl \
         php-phar \
+        netcat-openbsd \
         && rm -rf /var/lib/apt/lists/*
 
 

@@ -25,8 +25,6 @@ services: #containers images to use
     build:
       context: ./requirements
       dockerfile: mariadb/Dockerfile
-    # ports:
-    #   - "3306"
     volumes:
       # - wordpress_data:/var/www/html
       - mariadb_data:/var/lib/mysql
@@ -38,21 +36,23 @@ services: #containers images to use
     restart: always
     networks:
       - inception # is a part of the inception network
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER_ADMIN=${MYSQL_USER_ADMIN}
+      - MYSQL_PASSWORD_ADMIN=${MYSQL_PASSWORD_ADMIN}
     
   wordpress:
     container_name: wordpress
     build:
       context: ./requirements
       dockerfile: wordpress/Dockerfile
-    # ports:
-    #   - "8081:443"
     depends_on:   
       mariadb:
         condition: service_healthy
         restart: true
     healthcheck:
-      test: ["CMD", "listen", "3000"] # basic placeholder, or check if php-fpm port 9000 is open
-      interval: 5s
+      test: ["CMD", "nc", "-z", "localhost", "9000"]
       timeout: 5s
       retries: 5
     volumes:
@@ -61,6 +61,18 @@ services: #containers images to use
     restart: always
     networks:
       - inception # is a part of the inception network
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER_ADMIN=${MYSQL_USER_ADMIN}
+      - MYSQL_PASSWORD_ADMIN=${MYSQL_PASSWORD_ADMIN}
+      - WP_URL=${WP_URL}
+      - WP_ADMIN_USER=${WP_ADMIN_USER}
+      - WP_ADMIN_PASSWORD=${WP_ADMIN_PASSWORD}
+      - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
+      - WP_USER=${WP_USER}
+      - WP_USER_EMAIL=${WP_USER_EMAIL}
+      - WP_USER_PASSWORD=${WP_USER_PASSWORD}
 
 
 

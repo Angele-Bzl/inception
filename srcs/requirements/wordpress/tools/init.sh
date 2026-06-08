@@ -3,14 +3,19 @@
 if  [ ! -f "/var/www/html/wp-config.php" ]; then
     wget https://wordpress.org/latest.tar.gz
     tar -xzf latest.tar.gz
-    mv wordpress/* /var/www/html/
+    cp -r wordpress/* /var/www/html/
     rm -rf wordpress latest.tar.gz
 
-    until mariadb-admin ping -h mariadb -u "${MYSQL_USER_ADMIN}" -p"${MYSQL_PASSWORD_ADMIN}" --silent; do
-        echo "Waiting for mariadb..."
+    # until mariadb-admin ping -h mariadb -u root -p"${MYSQL_ROOT_PASSWORD}" --silent; do
+    until nc -z -v -w3 mariadb 3306; do
+        echo "Waiting for mariadb... "
         sleep 1
     done
     
+    sleep 5
+    
+    cd /var/www/html/
+
     # Configures the DB connection details
     wp config create \
         --dbname="${MYSQL_DATABASE}" \
