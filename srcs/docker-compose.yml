@@ -27,7 +27,8 @@ services: #containers images to use
       dockerfile: mariadb/Dockerfile
     volumes:
       # - wordpress_data:/var/www/html
-      - mariadb_data:/var/lib/mysql
+      # - mariadb_data:/var/lib/mysql
+      - /home/abarzila/data/mariadb:/var/lib/mysql
     healthcheck:
           test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "--silent"] # warning loop because no password
           interval: 5s
@@ -86,15 +87,17 @@ networks:
 
 volumes:
   wordpress_data: #check the infos ?
+    name: wordpress
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/abarzila/data/wordpress
+      device: "/home/abarzila/data/wordpress"
 
   mariadb_data: #check the infos ?
+    name: mariadb
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/abarzila/data/mariadb
+      device: "/home/abarzila/data/mariadb"

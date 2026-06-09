@@ -2,6 +2,11 @@
 
 set -e
 
+mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql
+mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
+
+echo "before if"
+
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "Initializing fresh MariaDB..."
 
@@ -15,7 +20,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
         sleep 1
     done
 
-    mariadb -u root -p"${MYSQL_ROOT_PASSWORD}" << EOF
+    mariadb -u root << EOF
 ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password;
 SET PASSWORD = PASSWORD('${MYSQL_ROOT_PASSWORD}');
 CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
@@ -29,6 +34,7 @@ EOF
 
     echo "MariaDB initialized successfully!"
 fi
+echo "after if"
 
 exec mariadbd --user=mysql --datadir=/var/lib/mysql \
     --bind-address=0.0.0.0
