@@ -1,44 +1,35 @@
 #!/bin/sh
 
+set -e
+
 if [ ! -d "/var/lib/mysql/mysql" ]; then
+    echo "Initializing fresh MariaDB..."
 
-echo "Initializing fresh MariaDB system tables..."
-    mariadb-install-db --user=mysql --datadir=/var/lib/mysql --rpm
+    mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
-    # mariadbd --user=mysql --skip-networking &
-    
-    # until mariadb-admin ping --silent; do 
-    #     echo "Waiting for mariadb..."
-    #     sleep 1
-    # done
+    mariadbd --user=mysql --datadir=/var/lib/mysql --skip-networking &
+    MARIADB_PID=$!
 
-    # mariadb -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
-    # mariadb -u root -p"${MYSQL_ROOT_PASSWORD}" -e "CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;"
-    # mariadb -u root -p"${MYSQL_ROOT_PASSWORD}" -e "CREATE USER IF NOT EXISTS '${MYSQL_USER_ADMIN}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD_ADMIN}';"
-    # mariadb -u root -p"${MYSQL_ROOT_PASSWORD}" -e "GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER_ADMIN}'@'%';"
-    # mariadb -u root -p"${MYSQL_ROOT_PASSWORD}" -e "FLUSH PRIVILEGES;"
+    until mariadb-admin ping --silent 2>/dev/null; do
+        echo "Waiting for MariaDB..."
+        sleep 1
+    done
 
-    # mariadb-admin -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
-
-    TMP_FILE="/tmp/init.sql"
-    
-cat << EOF > $TMP_FILE
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+    mariadb -u root -p"${MYSQL_ROOT_PASSWORD}" << EOF
+ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password;
+SET PASSWORD = PASSWORD('${MYSQL_ROOT_PASSWORD}');
 CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
 CREATE USER IF NOT EXISTS '${MYSQL_USER_ADMIN}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD_ADMIN}';
 GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER_ADMIN}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-    # Directly inject the configuration into the system tables
-    mariadbd --user=mysql --bootstrap < $TMP_FILE
-    rm -f $TMP_FILE
+    mariadb-admin -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
+    wait $MARIADB_PID
 
-    sleep 2
-
-    echo "MariaDB system tables initialized successfully!"
-
+    echo "MariaDB initialized successfully!"
 fi
 
-# Mariadb daemon in foreground
-exec mariadbd --user=mysql --console --bind-address=0.0.0.0
+exec mariadbd --user=mysql --datadir=/var/lib/mysql \
+    --bind-address=0.0.0.0
+    # --console

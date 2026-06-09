@@ -16,9 +16,9 @@ services: #containers images to use
         condition: service_healthy
         restart: true
     volumes:
-      - wordpress_data:/var/www/html # ?
+      - wordpress_data:/var/www/html
     networks:
-      - inception # is a part of the inception network
+      - inception
 
   mariadb:
     container_name: mariadb
@@ -29,13 +29,13 @@ services: #containers images to use
       # - wordpress_data:/var/www/html
       - mariadb_data:/var/lib/mysql
     healthcheck:
-          test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "--silent"]
+          test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "--silent"] # warning loop because no password
           interval: 5s
           timeout: 5s
           retries: 5
     restart: always
     networks:
-      - inception # is a part of the inception network
+      - inception
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -53,6 +53,7 @@ services: #containers images to use
         restart: true
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "9000"]
+      interval: 5s
       timeout: 5s
       retries: 5
     volumes:
@@ -60,7 +61,7 @@ services: #containers images to use
       - wordpress_data:/var/www/html
     restart: always
     networks:
-      - inception # is a part of the inception network
+      - inception
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -77,11 +78,11 @@ services: #containers images to use
 
 
 networks:
-  inception: #name of the network
+  inception:
     driver: bridge
-    ipam: #ip adress managment
+    ipam:
       config:
-        - subnet: "172.20.0.0/16" #ip here between quotes
+        - subnet: "172.20.0.0/16"
 
 volumes:
   wordpress_data: #check the infos ?

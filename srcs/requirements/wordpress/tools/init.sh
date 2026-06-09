@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 if  [ ! -f "/var/www/html/wp-config.php" ]; then
     wget https://wordpress.org/latest.tar.gz
     tar -xzf latest.tar.gz
