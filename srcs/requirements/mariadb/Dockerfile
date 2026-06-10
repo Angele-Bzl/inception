@@ -3,7 +3,7 @@
 FROM debian:bookworm
 
 #prepare the script and execution rights
-COPY mariadb/tools/init.sh /usr/local/bin/init.sh
+COPY mariadb/init.sh /usr/local/bin/init.sh
 RUN chmod +x /usr/local/bin/init.sh \
     # download mariadb
     && apt update -y \

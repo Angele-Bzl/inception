@@ -40,7 +40,7 @@ RUN sed -i 's|listen = /run/php/php8.2-fpm.sock|listen = 9000|g' /etc/php/8.2/fp
 RUN mkdir -p /run/php /var/www/html && chown -R www-data:www-data /var/www/html
 
 # copy the container script to the right directory
-COPY    wordpress/tools/init.sh /usr/local/bin/init.sh
+COPY    wordpress/init.sh /usr/local/bin/init.sh
 RUN     chmod +x /usr/local/bin/init.sh
 
 # EXPOSE  9000
