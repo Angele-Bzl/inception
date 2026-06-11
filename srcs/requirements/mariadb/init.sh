@@ -7,7 +7,7 @@ mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 
 echo "before if"
 
-if [ ! -d "/var/lib/mysql/mysql" ]; then
+if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
     echo "Initializing fresh MariaDB..."
 
     mariadb-install-db --user=mysql --datadir=/var/lib/mysql
