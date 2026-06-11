@@ -9,8 +9,8 @@ services: #containers images to use
       context: ./requirements
       dockerfile: nginx/Dockerfile
     ports: 
-      - "443:443" #port mapping to access from my machine host:container
-    restart: always
+      - "443:443"
+    restart: on-failure
     depends_on:   
       wordpress:
         condition: service_healthy
@@ -30,11 +30,11 @@ services: #containers images to use
       # - mariadb_data:/var/lib/mysql
       - /home/abarzila/data/mariadb:/var/lib/mysql
     healthcheck:
-          test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "--silent"] # warning loop because no password
-          interval: 5s
-          timeout: 5s
-          retries: 5
-    restart: always
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "--silent"] # warning loop because no password
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: on-failure
     networks:
       - inception
     environment:
@@ -60,7 +60,7 @@ services: #containers images to use
     volumes:
       # - "/home/abarzila/data" #mapping to store and not disappear
       - wordpress_data:/var/www/html
-    restart: always
+    restart: on-failure
     networks:
       - inception
     environment:

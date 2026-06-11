@@ -75,5 +75,4 @@ a volume maps the docker directory to a directory on our machine, so that if the
 - [debian's versions](https://www.debian.org/releases/index.fr.html)
 - [connecting MariaDB to a server](https://mariadb.com/docs/server/server-usage/connecting/mariadb-connecting-guide-1)
 - [what is nginx](https://www.f5.com/glossary/nginx)
-
-<!-- to clean the cache of the docker : docker sytem prune -af --volume -->
+- [docker compose documentation](https://docs.docker.com/reference/compose-file/)

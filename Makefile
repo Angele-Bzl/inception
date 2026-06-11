@@ -33,8 +33,9 @@ logs-%:
 PHONY: destroy
 destroy:
 	down
+	docker volume rm <nom du volume dans docker> fsil si le volume existe pas du coup OU true
 	docker system prune -af
-	docker image prune -af
+# 	docker image prune -af
 	sudo rm -rf ~/data/wordpress/* ~/data/mariadb/*
 
 PHONY: redo
