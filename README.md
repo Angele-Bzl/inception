@@ -76,3 +76,4 @@ a volume maps the docker directory to a directory on our machine, so that if the
 - [connecting MariaDB to a server](https://mariadb.com/docs/server/server-usage/connecting/mariadb-connecting-guide-1)
 - [what is nginx](https://www.f5.com/glossary/nginx)
 - [docker compose documentation](https://docs.docker.com/reference/compose-file/)
+- [explore database](https://www.softwaretestinghelp.com/use-mysql-from-command-line/)

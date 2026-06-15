@@ -1,58 +1,63 @@
-PHONY: all
-all:
-	docker compose -f srcs/docker-compose.yml up -d --build --no-recreate 
-# -d --build --no-recreate ?
+SRCS = srcs/
+YML = docker-compose.yml
+FILE = -f $(SRCS)$(YML)
+
+PHONY: help
+help:
+	@echo "--- TARGET GUIDE ---"
+	@echo "make: create the containers and volumes"
+	@echo "make down: end and destroy the containers"
+	@echo "make stop: stop the containers without destroying them"
+	@echo "make start: start the containers if they were stopped"
+	@echo "make info: prints the containers and the volumes running"
+	@echo "make logs-<service>: prints the docker-compose logs of the service"
+	@echo "make destroy: down the containers, destroy the volumes and images" 
+	@echo "make redo: destroy and remake the containers"
+	@echo "--- END OF TARGET GUIDE ---"
+
+
+PHONY: up
+up:
+	mkdir -p ~/data/wordpress
+	mkdir -p ~/data/mariadb
+	docker compose $(FILE) up -d --build --no-recreate
 
 # PHONY: build
 # build-%:
 # 	docker compose up --build -d $*
 
-$(TERM) -e sh -c "docker exec -it $*"
+# $(TERM) -e sh -c "docker exec -it $*"
 
 PHONY: down
 down:
-	docker compose down -f srcs/docker-compose.yml
+	docker compose $(FILE) down 
 
 PHONY: stop
 stop:
-	docker compose stop -f srcs/docker-compose.yml
+	docker compose $(FILE) stop 
 
 PHONY: start
 start:
-	docker compose start -f srcs/docker-compose.yml
+	docker compose $(FILE) start
 
 PHONY: info
 info:
-	docker compose ps -a srcs/docker-compose.yml
-	docker volume ls -f srcs/docker-compose.yml
+	docker compose $(FILE) ps -a
+	docker volume ls
 
 PHONY:logs
 logs-%:
-	docker logs $* -f srcs/docker-compose.yml
+	docker logs $*
 
-PHONY: destroy
-destroy:
-	down
-	docker volume rm <nom du volume dans docker> fsil si le volume existe pas du coup OU true
+PHONY: fclean
+fclean: down
+# 	docker volume rm
 	docker system prune -af
 # 	docker image prune -af
 	sudo rm -rf ~/data/wordpress/* ~/data/mariadb/*
 
-PHONY: redo
-redo:
-	destroy
-	all
+PHONY: re
+re: fclean up
 
-PHONY: help
-help:
-	echo "\
-	[default]: create the containers and volumes\n
-	down: end and destroy the containers\n
-	stop: stop the containers without destroying them\n
-	start: start the containers if they were stopped\n
-	info: prints the containers and the volumes running\n
-	logs-<service>: prints the docker-compose logs of the service\n
-	destroy: down the containers, destroy the volumes and images\n 
-	redo: destroy and remake the containers\
-	"
+
 
