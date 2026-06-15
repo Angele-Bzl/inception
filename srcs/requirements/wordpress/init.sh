@@ -3,9 +3,8 @@
 set -e
 
 if echo "$WP_ADMIN_USER" | grep "admin" > /dev/null || echo "$WP_ADMIN_USER" | grep "Admin" > /dev/null; then
-    echo "Warning: Worpdress admin user can't contain the word 'admin' or 'Admin'"
-    # set WP_ADMIN_USER=boss
-    # echo "Wordpress admin user variable changed to 'boss'" 
+    echo "Error: Worpdress admin user can't contain the word 'admin' or 'Admin'"
+    exit 1
 fi
 
 if  [ ! -f "/var/www/html/wp-config.php" ]; then

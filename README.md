@@ -77,3 +77,5 @@ a volume maps the docker directory to a directory on our machine, so that if the
 - [what is nginx](https://www.f5.com/glossary/nginx)
 - [docker compose documentation](https://docs.docker.com/reference/compose-file/)
 - [explore database](https://www.softwaretestinghelp.com/use-mysql-from-command-line/)
+- [What is php-fpm](https://www.plesk.com/blog/guides/php-fpm-the-future-of-php-handling/)
+- [What is PID 1 and how to do a proper init ](https://denibertovic.com/posts/containers-and-signal-handling-why-you-need-to-care-about-pid-1/)
