@@ -30,7 +30,7 @@ services: #containers images to use
       - mariadb_data:/var/lib/mysql
       # - /home/abarzila/data/mariadb:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "--silent"] # warning loop because no password
+      test: ["CMD", "mariadb-admin", "ping", "-h", "127.0.0.1", "-u", "$HEALTHCHECK", "-p$HEALTHCHECK_PASSWORD", "--silent"] # warning loop because no password
       interval: 5s
       timeout: 5s
       retries: 5
@@ -42,6 +42,8 @@ services: #containers images to use
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER_ADMIN=${MYSQL_USER_ADMIN}
       - MYSQL_PASSWORD_ADMIN=${MYSQL_PASSWORD_ADMIN}
+      - HEALTHCHECK=${HEALTHCHECK} 
+      - HEALTHCHECK_PASSWORD=${HEALTHCHECK_PASSWORD}
     
   wordpress:
     container_name: wordpress
