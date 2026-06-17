@@ -43,16 +43,17 @@ In a nutshell, containers are optimized and lighter VM, with no intermediate to 
 ##### Container or docker ?
 Docker is a platform displaying containers and helping build images architectures.  
 Each container contain an isolated app, and docker automate its deployment and, if needed, creates a special network architecture.  
-The main function of container is to solve the compatibilty problems that can occur when an app runs from one machine to another. By building an app in a isolated environment, you then only have to give the environment with the app to make sure it works.
-Also by being isolated, the containers have less chance of being corrupted by the host. 
+The main function of container is to solve the compatibilty problems that can occur when an app runs from one machine to another. By building an app in a isolated environment, you then only have to give the environment with the app to make sure it works.  
+Also by being isolated, the containers have less chance of being corrupted by the host.     
 
 #### Secrets VS Environment variables
+Environment variables keep existing in the image of the docker and can be accessed when we execute the container in a terminal interface. They are useful but setting passwords or such as environment variable can be a security breach as they will still be accessible after the build.
+To communicate compromised informations to the docker compose or dockerfile, it is a way better practice to use secrets as the data is encrypted and no trace is left in the final image.   
 
 #### Docker network VS host network
-docker-compose crée automatiquement un network quand on up (pk ?)
-A container is the instance of a docker image.
-To build the container, we used a dockerfile telling which base image we need, and how we wanted to customize it (what app, what script at the launch...) 
-The docker-compose.yml file allow to build multiple docker at a time, and create communications in the network.
+Both networks are networking modes for containers.  
+The docker network are isolated from the machine. In a docker network dockers can communicate, and docker networks can communicate to other docker networks, but can communicate with the host. Whereas host network allows the containers to use the host machine's stack, without isolation.  
+Host network has better performance, as it is connected to the machine directly, but docker network is more secure, as there is no communication with the machine.
 
 #### Docker volumes VS bind mounts
 a volume maps the docker directory to a directory on our machine, so that if the container is closed or crashes, the data still exists on the host.
@@ -81,9 +82,6 @@ Very quickly, the use of AI became counterproductive as it doesn't really 'think
 ### Structure of the project
 ```mermaid
 ```
-### Flowchart of the program
-```mermaid
-``` 
 
 ## Resources
 - [make a yml file](https://github.com/Tutors42Lyon/Github-Actions)
@@ -100,3 +98,6 @@ Very quickly, the use of AI became counterproductive as it doesn't really 'think
 - [explore database](https://www.softwaretestinghelp.com/use-mysql-from-command-line/)
 - [What is php-fpm](https://www.plesk.com/blog/guides/php-fpm-the-future-of-php-handling/)
 - [What is PID 1 and how to do a proper init ](https://denibertovic.com/posts/containers-and-signal-handling-why-you-need-to-care-about-pid-1/)
+- [What are docker secrets](https://www.wiz.io/academy/container-security/docker-secrets)
+- [Docker network VS host network](https://thisvsthat.io/docker-network-vs-host-network)
+- [Docker volume VS bind mount](https://www.geeksforgeeks.org/devops/docker-volume-vs-bind-mount/)
