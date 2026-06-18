@@ -40,8 +40,12 @@ make start
 **Note** : `stop` and `start` are way lighter and faster than `up` and `down`. But you can't `start` the project if you didn't `up` it.
 
 # Access the website and the administration panel
-To access the website, go to your browser and type this url : `https://<login>.42.fr`
+To access the website, go to your browser and type this url : `https://abarzila.42.fr`. 
+To connect, go to the page `https://abarzila.42.fr/wp-admin` and enter your admin id and password. You will access the administration panel.
 
 # Locate and manage credentials
+After following the dev documentation, there should be an `.env` file in the `srcs/` directory. This is where there is all the credentials needed for the architecture to work. 
+**Note** : Make sure your admin id for wordpress doesn't contain 'admin' or 'Admin', as it will be refused because a security breach.   
 
-# Check that the servicec are running correctly
+# Check that the services are running correctly
+At anytime in your terminal you can check what servicec are running and their status by typing in the repo root directory `make info`.
