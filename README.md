@@ -56,7 +56,10 @@ The docker network are isolated from the machine. In a docker network dockers ca
 Host network has better performance, as it is connected to the machine directly, but docker network is more secure, as there is no communication with the machine.
 
 #### Docker volumes VS bind mounts
-a volume maps the docker directory to a directory on our machine, so that if the container is closed or crashes, the data still exists on the host.
+Both docker volumes and bind mount has the same function. They both are a directory or a file that will stock the docker components in order to persist when the docker is down.    
+The bind mount is when a sym link is created between an already existing directory on the host machine and the container. The bind mount need an absolute path on the host machine then.    
+The docker volume is a directory created by Docker, stored on the host machine. 
+Bind mount tends to be obsolete as it can not be interacted with using APIs, and the fact that it needs an absolute path is not as practical as a specified directory created by docker, using always the same docker path and using also directly the name of the volume. It's cleaner.    
 
 
 ## Instructions
@@ -81,6 +84,25 @@ Very quickly, the use of AI became counterproductive as it doesn't really 'think
 ## Project diagram
 ### Structure of the project
 ```mermaid
+```
+```
+README.md
+USER_DOC.md
+DEV_DOC.md
+Makefile
+srcs/
+├─ docker-compose.yml
+├─ .env
+├─ requirements/
+│  ├─ mariadb/
+│  │  ├─ dockerfile
+│  │  ├─ init.sh
+│  ├─ wordpress/
+│  │  ├─ dockerfile
+│  │  ├─ init.sh
+│  ├─ nginx/
+│  │  ├─ dockerfile
+│  │  ├─ nginx.conf
 ```
 
 ## Resources

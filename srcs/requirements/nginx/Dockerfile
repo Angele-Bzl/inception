@@ -18,12 +18,10 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 # copy the container script to the right directory
 # COPY    tools/init.sh /usr/local/bin/init.sh
-COPY    nginx/conf/nginx.conf /etc/nginx/nginx.conf
+COPY    nginx/nginx.conf /etc/nginx/nginx.conf
 
 # open port for the other containers https://
 # EXPOSE  443
 
 # command run when the container is launched
 ENTRYPOINT  ["nginx", "-g", "daemon off;"]
-
-# the variable should be in .env and the cmd that need var should be in a script
