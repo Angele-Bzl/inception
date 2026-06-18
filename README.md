@@ -35,10 +35,10 @@ flowchart LR
 ### Project description
 #### Virtual machines VS docker
 Virtual machines and docker do look alike, as they both simulate an environment. But they are inherently different. 
-Virtual machines (VM) are virtual environment that access the kernel through the hypervisor, when container access directly to the kernel.  
-Most of the times, a VM will have an OS, it will simulate a CPU, the RAM, and everything in a machine, making the images heavy, easly many BG.  
-In the case of the container, it only contains an app with no OS, only the bare minimum with no interface whatsoever. Also in a network, the containers optimize by loading the libraries once for everyone. A container image is usually weighted in MB.
-In a nutshell, containers are optimized and lighter VM, with no intermediate to the kernel. The biggest con is that it is a younger technology (Docker is from 2013) which can have security or system breachs. 
+Virtual machines (VM) are virtual environment that **access the kernel through the hypervisor**, when container access directly to the kernel.  
+Most of the times, a VM will have an OS, it will simulate a CPU, the RAM, and everything in a machine, making the images heavy, easly many Gyga bytes.  
+In the case of the container, it only contains an app with no OS, only the bare minimum with no interface whatsoever. Also in a network, the containers optimize by loading the libraries once for everyone. A container image is usually weighted in Mega bytes.
+In a nutshell, **dockers are optimized and lighter VM, with no intermediate to the kernel**. The biggest con is that it is a younger technology (Docker is from 2013) which can have security or system breachs. 
 
 ##### Container or docker ?
 Docker is a platform displaying containers and helping build images architectures.  
