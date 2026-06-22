@@ -64,7 +64,7 @@ Bind mount tends to be obsolete as it can not be interacted with using APIs, and
 
 ## Instructions
 Git clone this project onto your computer host. You will need to have sudo, since some makefile targets use `rm -rf` commands.  
-Add to your cloned directory a `.env` file. You will need all the variables given in the `.env_exemple_to_fill.txt` file.
+Add to your cloned directory a `.env` file. You will need all the variables given in the `.env_example_to_fill.txt` file.
 Go in your cloned directory, then to build your docker network and wordpress website, do `make up`. To down your containers, you can do `make down`. At any time you can do `make` or `make help` to see all the available targets.
 
 ```

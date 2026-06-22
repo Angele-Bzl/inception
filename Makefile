@@ -45,9 +45,8 @@ logs-%:
 
 .PHONY: fclean
 fclean: down
-# 	docker volume rm
 	docker system prune -af
-# 	docker image prune -af
+	docker image prune -af
 	sudo rm -rf ~/data/wordpress/* ~/data/mariadb/*
 
 .PHONY: re

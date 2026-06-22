@@ -1,20 +1,3 @@
-docker compose up [--build]
-docker compose down [-v]
-docker compose stop
-docker compose start
-docker compose ps -a
-docker volume ls
-docker exec -it <service> sh
-docker logs <service>
-docker system prune -a [-f]
-docker image prune -a [-f]
-
-
-docker exec -it mariadb sh
-mysql -u <user> [-p] -D <your_db>
-SHOW TABLES;
-SELECT * FROM wp_users;
-
 # Set up the environment from scratch (prerequisites, configuration files, secrets)
 Make sure you have docker installed on your host machine. You might need to do a command that look like this :
 ```
@@ -59,4 +42,19 @@ There are two volumes in this docker compose :
 ```
 /home/abarzila/data/mariadb
 ```
-The volumes are stored on the host machine, thus not destroyed when the containers are down.
+The volumes are stored on the host machine, thus not destroyed when the containers are down.    
+
+When the containers are up, you can access the database like so :
+1) go inside the mariadb container
+```
+docker exec -it mariadb sh
+```
+2) access the database with mysql
+```
+mysql -u <user> [-p] -D <your_db>
+```
+3) You can now find the data you want. Here are examples.
+```
+SHOW TABLES;
+SELECT * FROM wp_users;
+```
