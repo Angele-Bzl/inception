@@ -3,7 +3,8 @@
 set -e
 
 if echo "$WP_ADMIN_USER" | grep "admin" > /dev/null || echo "$WP_ADMIN_USER" | grep "Admin" > /dev/null; then
-    echo "Error: Worpdress admin user can't contain the word 'admin' or 'Admin'"
+    echo "\033[0;31mError\033[0m: WP_ADMIN_USER can't contain the word 'admin' or 'Admin'"
+    echo "The container won't launch correctly with a wrong admin user name."
     exit 1
 fi
 
