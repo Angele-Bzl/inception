@@ -5,8 +5,6 @@ set -e
 mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql
 mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 
-echo "before if"
-
 if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
     echo "Initializing fresh MariaDB..."
 
@@ -37,7 +35,6 @@ EOF
 
     echo "MariaDB initialized successfully!"
 fi
-echo "after if"
 
 exec mariadbd --user=mysql --datadir=/var/lib/mysql \
     --bind-address=0.0.0.0

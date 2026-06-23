@@ -48,4 +48,4 @@ After following the dev documentation, there should be an `.env` file in the `sr
 **Note** : Make sure your admin id for wordpress doesn't contain 'admin' or 'Admin', as it will be refused because a security breach.   
 
 # Check that the services are running correctly
-At anytime in your terminal you can check what servicec are running and their status by typing in the repo root directory `make info`.
+At anytime in your terminal you can check what services are running and their status by typing in the repo root directory `make info`.

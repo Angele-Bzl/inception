@@ -14,7 +14,6 @@ if  [ ! -f "/var/www/html/wp-config.php" ]; then
     cp -r wordpress/* /var/www/html/
     rm -rf wordpress latest.tar.gz
 
-    # until mariadb-admin ping -h mariadb -u root -p"${MYSQL_ROOT_PASSWORD}" --silent; do
     until nc -z -v -w3 mariadb 3306; do
         echo "Waiting for mariadb... "
         sleep 1
@@ -32,9 +31,9 @@ if  [ ! -f "/var/www/html/wp-config.php" ]; then
         --dbhost="mariadb" \
         --allow-root
 
-    # Installs WP and sets up the Admin (Make sure $WP_ADMIN_USER doesn't contain 'admin'!)
+    # Installs WP and sets up the Admin
     wp core install \
-        --url="${WP_URL}" \
+        --url="abarzila.42.fr" \
         --title="Inception WordPress" \
         --admin_user="${WP_ADMIN_USER}" \
         --admin_password="${WP_ADMIN_PASSWORD}" \

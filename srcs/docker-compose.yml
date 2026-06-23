@@ -1,8 +1,4 @@
-# A docker-network that establishes the connection between your containers
-# Your containers have to restart in case of a crash.
-# version: "3" #docker version
-
-services: #containers images to use
+services:
   nginx: 
     container_name: nginx
     build:
@@ -26,9 +22,7 @@ services: #containers images to use
       context: ./requirements
       dockerfile: mariadb/Dockerfile
     volumes:
-      # - wordpress_data:/var/www/html
       - mariadb_data:/var/lib/mysql
-      # - /home/abarzila/data/mariadb:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mariadb-admin", "ping", "-h", "127.0.0.1", "-u", "$HEALTHCHECK", "-p$HEALTHCHECK_PASSWORD", "--silent"] # warning loop because no password
       interval: 5s
@@ -60,7 +54,6 @@ services: #containers images to use
       timeout: 5s
       retries: 5
     volumes:
-      # - "/home/abarzila/data" #mapping to store and not disappear
       - wordpress_data:/var/www/html
     restart: on-failure
     networks:
@@ -70,15 +63,12 @@ services: #containers images to use
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER_ADMIN=${MYSQL_USER_ADMIN}
       - MYSQL_PASSWORD_ADMIN=${MYSQL_PASSWORD_ADMIN}
-      - WP_URL=${WP_URL}
       - WP_ADMIN_USER=${WP_ADMIN_USER}
       - WP_ADMIN_PASSWORD=${WP_ADMIN_PASSWORD}
       - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
       - WP_USER=${WP_USER}
       - WP_USER_EMAIL=${WP_USER_EMAIL}
       - WP_USER_PASSWORD=${WP_USER_PASSWORD}
-
-
 
 networks:
   inception:

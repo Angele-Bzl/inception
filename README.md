@@ -123,3 +123,4 @@ srcs/
 - [What are docker secrets](https://www.wiz.io/academy/container-security/docker-secrets)
 - [Docker network VS host network](https://thisvsthat.io/docker-network-vs-host-network)
 - [Docker volume VS bind mount](https://www.geeksforgeeks.org/devops/docker-volume-vs-bind-mount/)
+- [docker networks](https://geeksforgeeks.org/devops/basics-of-docker-networking/)

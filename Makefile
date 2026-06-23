@@ -47,6 +47,8 @@ logs-%:
 fclean: down
 	docker system prune -af
 	docker image prune -af
+	docker volume rm wordpress || true
+	docker volume rm mariadb || true
 	sudo rm -rf ~/data/wordpress/* ~/data/mariadb/*
 
 .PHONY: re
