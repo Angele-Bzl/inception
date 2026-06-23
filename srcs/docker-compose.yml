@@ -24,7 +24,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mariadb-admin", "ping", "-h", "127.0.0.1", "-u", "$HEALTHCHECK", "-p$HEALTHCHECK_PASSWORD", "--silent"] # warning loop because no password
+      test: ["CMD", "mariadb-admin", "ping", "-h", "127.0.0.1", "-u", "$HEALTHCHECK", "-p$HEALTHCHECK_PASSWORD", "--silent"]
       interval: 5s
       timeout: 5s
       retries: 5
