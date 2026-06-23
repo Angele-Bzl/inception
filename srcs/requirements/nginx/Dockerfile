@@ -1,7 +1,7 @@
 # define the OS for the container
 FROM    debian:bookworm
 
-ARG DOMAIN_NAME=abarzila
+ARG DOMAIN_NAME="abarzila.42.fr"
 
 # download the utilities
 RUN     apt-get update \
@@ -10,8 +10,8 @@ RUN     apt-get update \
 
 # download ssl to create the certificate
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-        -keyout /etc/nginx/${DOMAIN_NAME}.42.fr.key \
-        -out /etc/nginx/${DOMAIN_NAME}.42.fr.crt \
+        -keyout /etc/nginx/${DOMAIN_NAME}.key \
+        -out /etc/nginx/${DOMAIN_NAME}.crt \
         -subj "/C=CO/ST=REG/L=City/O=42/CN=${DOMAIN_NAME}"
 
 EXPOSE  443
