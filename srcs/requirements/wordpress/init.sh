@@ -9,10 +9,12 @@ if echo "$WP_ADMIN_USER" | grep "admin" > /dev/null || echo "$WP_ADMIN_USER" | g
 fi
 
 if  [ ! -f "/var/www/html/wp-config.php" ]; then
-    wget https://wordpress.org/latest.tar.gz
-    tar -xzf latest.tar.gz
+    wget https://wordpress.org/wordpress-6.8.2.tar.gz
+    tar -xzf wordpress-6.8.2.tar.gz
     cp -r wordpress/* /var/www/html/
-    rm -rf wordpress latest.tar.gz
+    rm -rf wordpress wordpress-6.8.2.tar.gz
+
+   # wp core download --allow-root --version=6.9
 
     until nc -z -v -w3 mariadb 3306; do
         echo "Waiting for mariadb... "

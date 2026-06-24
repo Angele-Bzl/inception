@@ -13,7 +13,8 @@ help:
 	@echo "make info: prints the containers and the volumes running"
 	@echo "make logs-<service>: prints the docker-compose logs of the service"
 	@echo "make fclean: down the containers, destroy the volumes and images" 
-	@echo "make re: destroy and remake the containers"
+	@echo "make re: down and up the containers"
+	@echo "make fre: destroy and remake the containers"
 	@echo "--- END OF TARGET GUIDE ---"
 
 .PHONY: up

@@ -24,7 +24,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mariadb-admin", "ping", "-h", "127.0.0.1", "-u", "$HEALTHCHECK", "-p$HEALTHCHECK_PASSWORD", "--silent"]
+      test: ["CMD", "mariadb-admin", "ping", "-h", "127.0.0.1", "-u", "health", "-phealth_pw", "--silent"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -36,8 +36,6 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER_ADMIN=${MYSQL_USER_ADMIN}
       - MYSQL_PASSWORD_ADMIN=${MYSQL_PASSWORD_ADMIN}
-      - HEALTHCHECK=${HEALTHCHECK} 
-      - HEALTHCHECK_PASSWORD=${HEALTHCHECK_PASSWORD}
     
   wordpress:
     container_name: wordpress

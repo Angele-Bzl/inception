@@ -30,7 +30,8 @@ Every relevant commands is now a target from the Makefile. Typing `make help` wi
 	make info: prints the containers and the volumes running
 	make logs-<service>: prints the docker-compose logs of the service
 	make fclean: down the containers, destroy the volumes and images 
-	make re: destroy and remake the containers
+	make re: down and up the containers
+	make fre: destroy and remake the containers
 	--- END OF TARGET GUIDE ---
 ```	
 If you want to manually type the docker compose commands, go in the srcs/ directory (where the docker-compose.yml file is).	
@@ -50,9 +51,10 @@ When the containers are up, you can access the database like so :
 ```
 docker exec -it mariadb sh
 ```
-2) access the database with mysql
+2) access the database with mysql. The only authorized user is `root`.
 ```
-mysql -u <user> [-p] -D <your_db>
+mysql -u root -p -D <your_db>
+(then type your MYSQL_ROOT_PASSWORD)
 ```
 3) You can now find the data you want. Here are examples.
 ```
