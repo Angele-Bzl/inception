@@ -19,7 +19,7 @@ This target will launch the containers and network, create the volumes, and star
 If you have any questions, type `make` or `make help` to see all the possible targets.
 
 # Use relevant commands to manage the containers and volumes
-Every relevant commands is now a target from the Makefile. Typing `make help` will show you this target guide : 
+Every relevant commands is a target from the Makefile. Typing `make help` will show you this target guide : 
 ```
 	--- TARGET GUIDE ---
 	make help: display the target guide
@@ -34,7 +34,17 @@ Every relevant commands is now a target from the Makefile. Typing `make help` wi
 	make fre: destroy and remake the containers
 	--- END OF TARGET GUIDE ---
 ```	
-If you want to manually type the docker compose commands, go in the srcs/ directory (where the docker-compose.yml file is).	
+Here are some useful commands :	
+- docker compose up : create the containers and volumes (if necessary)
+- docker compose down : delete the containers (but not the volumes)
+- docker compose stop : stop the containers from running
+- docker compose start : start back the containers if they were stopped
+- docker compose ps : show what containers are up and their status
+- docker ps : show actual running docker on the host
+- docker volume ls : show the existing docker volumes
+- docker images : show built images on the host
+- docker network ls : show all the networks on the hosts (they are usually other docker networks running besides this one)
+**Note : ** If you want to manually type the docker compose commands, go in the srcs/ directory (where the docker-compose.yml file is).		
 
 # Identify where the project data is stored and how it persists
 There are two volumes in this docker compose :
