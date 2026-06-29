@@ -44,6 +44,7 @@ Here are some useful commands :
 - docker volume ls : show the existing docker volumes
 - docker images : show built images on the host
 - docker network ls : show all the networks on the hosts (they are usually other docker networks running besides this one)
+- docker inspect srcs_inception : print all the information about the network in json format
 **Note : ** If you want to manually type the docker compose commands, go in the srcs/ directory (where the docker-compose.yml file is).		
 
 # Identify where the project data is stored and how it persists
