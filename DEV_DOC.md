@@ -8,7 +8,8 @@ Then git clone this project.
 git clone git@github.com:Angele-Bzl/inception.git <new directory>
 ```
 In your new directory/srcs you will find a file called `.env_example_to_fill`. You can rename it `.env` and complete each variable with a value.  
-**Note** : your admin user name can't contain `admin` or `Admin`, and your email must be a valid email string.
+**Note** : your admin user name can't contain `admin` or `Admin`, and your email must be a valid email string, and the different wordpress user shall have different address. If not, the container will fail to build.
+
 
 # Build and launch the project using the Makefile and Docker compose
 To launch the containers, go at the root of your directory (where there is the Makefile) and type the up command :
