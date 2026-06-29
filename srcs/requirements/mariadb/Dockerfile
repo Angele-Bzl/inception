@@ -3,7 +3,7 @@ FROM debian:bookworm
 
 # copy the container script to the right directory
 COPY mariadb/init.sh /usr/local/bin/init.sh
-# RUN     chmod +x /usr/local/bin/init.sh
+RUN chmod +x /usr/local/bin/init.sh
 
 # download the utilities
 RUN chmod +x /usr/local/bin/init.sh \
